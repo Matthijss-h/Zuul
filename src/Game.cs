@@ -4,12 +4,13 @@ class Game
 {
 	// Private fields
 	private Parser parser;
-	private Room currentRoom;
+	private Player player;
 
 	// Constructor
 	public Game()
 	{
 		parser = new Parser();
+		player = new Player();
 		CreateRooms();
 	}
 
@@ -22,6 +23,7 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
+		Room basement = new Room("in the basement");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
@@ -34,8 +36,11 @@ class Game
 
 		lab.AddExit("north", outside);
 		lab.AddExit("east", office);
+		lab.AddExit("down", basement);
 
 		office.AddExit("west", lab);
+
+		basement.AddExit("up", lab);
 
 		// Create your Items here
 		// ...
@@ -43,7 +48,7 @@ class Game
 		// ...
 
 		// Start game outside
-		currentRoom = outside;
+		player.CurrentRoom = outside;
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -72,7 +77,13 @@ class Game
 		Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
-		Console.WriteLine(currentRoom.GetLongDescription());
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+	}
+
+	// Print out where the player is and what exits are available.
+	private void PrintLook()
+	{
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
 	// Given a command, process (that is: execute) the command.
@@ -98,6 +109,9 @@ class Game
 				break;
 			case "quit":
 				wantToQuit = true;
+				break;
+			case "look":
+				PrintLook();
 				break;
 		}
 
@@ -133,14 +147,14 @@ class Game
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
-		Room nextRoom = currentRoom.GetExit(direction);
+		Room nextRoom = player.CurrentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to "+direction+"!");
 			return;
 		}
 
-		currentRoom = nextRoom;
-		Console.WriteLine(currentRoom.GetLongDescription());
+		player.CurrentRoom = nextRoom;
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 }
