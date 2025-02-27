@@ -65,8 +65,6 @@ class Game
 			finished = ProcessCommand(command);
 		}
 		Console.WriteLine("Thank you for playing.");
-		Console.WriteLine("Press [Enter] to continue.");
-		Console.ReadLine();
 	}
 
 	// Print out the opening message for the player.
@@ -163,7 +161,7 @@ class Game
 		}
 
 		player.CurrentRoom = nextRoom;
-		player.Damage(100);
+		player.Damage(10);
 		player.IsAlive();
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}

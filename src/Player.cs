@@ -26,8 +26,7 @@ class Player
     {
         if (health <= 0)
         {
-            Console.WriteLine("You have died.");
-            Console.WriteLine("Game Over.");
+            Console.WriteLine("You died.");
             Environment.Exit(0);
         }
     }
