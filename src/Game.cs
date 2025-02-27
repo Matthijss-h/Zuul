@@ -86,6 +86,11 @@ class Game
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
+        public void PrintStatus()
+    {
+		Console.WriteLine($"Health: {player.health}/100");
+    }
+
 	// Given a command, process (that is: execute) the command.
 	// If this command ends the game, it returns true.
 	// Otherwise false is returned.
@@ -112,6 +117,9 @@ class Game
 				break;
 			case "look":
 				PrintLook();
+				break;
+			case "status":
+				PrintStatus();
 				break;
 		}
 
@@ -155,6 +163,8 @@ class Game
 		}
 
 		player.CurrentRoom = nextRoom;
+		player.Damage(100);
+		player.IsAlive();
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 }
