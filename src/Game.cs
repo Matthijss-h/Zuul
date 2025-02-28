@@ -43,7 +43,11 @@ class Game
 		basement.AddExit("up", lab);
 
 		// Create your Items here
-		// ...
+		Item sword = new Item(10, "A sharp sword");
+		Item bandage = new Item(5, "A bandage to heal yourself");
+		Item medKit = new Item(20, "A medKit to heal yourself");
+		Item key = new Item(5, "A key to open doors");
+
 		// And add them to the Rooms
 		// ...
 
@@ -78,17 +82,6 @@ class Game
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
-	// Print out where the player is and what exits are available.
-	private void PrintLook()
-	{
-		Console.WriteLine(player.CurrentRoom.GetLongDescription());
-	}
-
-        public void PrintStatus()
-    {
-		Console.WriteLine($"Health: {player.health}/100");
-    }
-
 	// Given a command, process (that is: execute) the command.
 	// If this command ends the game, it returns true.
 	// Otherwise false is returned.
@@ -96,7 +89,7 @@ class Game
 	{
 		bool wantToQuit = false;
 
-		if(command.IsUnknown())
+		if (command.IsUnknown())
 		{
 			Console.WriteLine("I don't know what you mean...");
 			return wantToQuit; // false
@@ -127,7 +120,7 @@ class Game
 	// ######################################
 	// implementations of user commands:
 	// ######################################
-	
+
 	// Print out some help information.
 	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
@@ -139,11 +132,32 @@ class Game
 		parser.PrintValidCommands();
 	}
 
+	// Print out where the player is and what exits are available.
+	private void PrintLook()
+	{
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+	}
+
+	public void PrintStatus()
+	{
+		Console.WriteLine($"Health: {player.health}/100");
+	}
+
+	private void Take(Command command)
+	{
+		// TODO implement
+	}
+
+	private void Drop(Command command)
+	{
+		// TODO implement
+	}
+
 	// Try to go to one direction. If there is an exit, enter the new
 	// room, otherwise print an error message.
 	private void GoRoom(Command command)
 	{
-		if(!command.HasSecondWord())
+		if (!command.HasSecondWord())
 		{
 			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
@@ -156,7 +170,7 @@ class Game
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
-			Console.WriteLine("There is no door to "+direction+"!");
+			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 

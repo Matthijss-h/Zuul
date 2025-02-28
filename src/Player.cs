@@ -30,6 +30,4 @@ class Player
             Environment.Exit(0);
         }
     }
-
-
 }
