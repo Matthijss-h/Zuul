@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 class Inventory
 {
     // fields
@@ -19,6 +21,7 @@ class Inventory
         // Does the Item fit?
         // Put Item in the items Dictionary
         // Return true/false for success/failure
+        items.Add(itemName, item);
 
         return false;
     }
@@ -29,8 +32,9 @@ class Inventory
         // Find Item in items Dictionary
         // remove Item from items Dictionary if found
         // return Item or null
+        return items[itemName];
 
-        return null;
+        // return null;
     }
 
     public int TotalWeight()
@@ -46,13 +50,26 @@ class Inventory
         // TODO implement:
         // compare MaxWeight and TotalWeight()
 
-        if (maxWeight < TotalWeight())
+        if (TotalWeight() >= maxWeight)
         {
             return 0;
         }
-        else
-        {
-            return maxWeight - TotalWeight();
-        }
+
+        return maxWeight - TotalWeight();
+    }
+
+    public string ShowItems()
+    {
+        // string itemList = "";
+
+        // foreach (string item in items.Keys)
+        // {
+        //     itemList += item + ", ";
+        // }
+    
+        // return "Items on da floor: "+ itemList;
+
+        return "Items on da floor: " + string.Join(", ", items.Keys);
+
     }
 }

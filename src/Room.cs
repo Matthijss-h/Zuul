@@ -5,6 +5,12 @@ class Room
 	// Private fields
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
+	private Inventory chest;
+
+	public Inventory Chest
+	{
+		get { return chest; }
+	}
 
 	// Create a room described "description". Initially, it has no exits.
 	// "description" is something like "in a kitchen" or "in a court yard".
@@ -12,12 +18,18 @@ class Room
 	{
 		description = desc;
 		exits = new Dictionary<string, Room>();
+		chest = new Inventory(2147483647);
 	}
 
 	// Define an exit for this room.
 	public void AddExit(string direction, Room neighbor)
 	{
 		exits.Add(direction, neighbor);
+	}
+
+	public void AddItem(string itemName, Item item)
+	{
+		chest.Put(itemName, item);
 	}
 
 	// Return the description of the room.

@@ -13,7 +13,7 @@ class Game
 		player = new Player();
 		CreateRooms();
 	}
-
+	
 	// Initialise the Rooms (and the Items)
 	private void CreateRooms()
 	{
@@ -43,16 +43,33 @@ class Game
 		basement.AddExit("up", lab);
 
 		// Create your Items here
-		Item sword = new Item(10, "A sharp sword");
-		Item bandage = new Item(5, "A bandage to heal yourself");
-		Item medKit = new Item(20, "A medKit to heal yourself");
-		Item key = new Item(5, "A key to open doors");
+		Item sword = new Item(10, "sword");
+		Item chestplate = new Item(15, "chestplate");
+		Item bandage = new Item(5, "bandage");
+		Item medKit = new Item(10, "medKit");
+		Item key = new Item(5, "key");
 
-		// And add them to the Rooms
-		// ...
+
+		// outside.Chest.Put("sword", sword);
+		// outside.Chest.Put("chestplate", chestplate);
 
 		// Start game outside
 		player.CurrentRoom = outside;
+
+		// Put random items in the rooms
+		// List of all rooms
+		Room[] rooms = { outside, theatre, pub, lab, office, basement };
+
+		// List of all items
+		Item[] items = { sword, chestplate, bandage, medKit, key };
+
+		// Randomly distribute items across rooms
+		Random random = new Random();
+		foreach (Item item in items)
+		{
+			int randomRoomIndex = random.Next(items.Length);
+			rooms[randomRoomIndex].Chest.Put(item.Description, item);
+		}
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -91,7 +108,9 @@ class Game
 
 		if (command.IsUnknown())
 		{
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("I don't know what you mean...");
+			Console.ResetColor();
 			return wantToQuit; // false
 		}
 
@@ -111,6 +130,12 @@ class Game
 				break;
 			case "status":
 				PrintStatus();
+				break;
+			case "take":
+				Take(command);
+				break;
+			case "drop":
+				Drop(command);
 				break;
 		}
 
@@ -136,6 +161,9 @@ class Game
 	private void PrintLook()
 	{
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		Console.ForegroundColor = ConsoleColor.Blue;
+		Console.WriteLine(player.CurrentRoom.Chest.ShowItems());
+		Console.ResetColor();
 	}
 
 	public void PrintStatus()
@@ -143,9 +171,10 @@ class Game
 		Console.WriteLine($"Health: {player.health}/100");
 	}
 
+
 	private void Take(Command command)
 	{
-		// TODO implement
+		
 	}
 
 	private void Drop(Command command)
