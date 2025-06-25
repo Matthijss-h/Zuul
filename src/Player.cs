@@ -24,13 +24,13 @@ class Player
         health += heal;
     }
 
-    public void IsAlive()
+    public bool IsAlive()
     {
         if (health <= 0)
         {
-            Console.WriteLine("You died.");
-            Environment.Exit(0);
+            return false;
         }
+        return true;
     }
 
     public bool TakeFromChest(string itemName)

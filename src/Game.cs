@@ -50,26 +50,26 @@ class Game
 		Item key = new Item(5, "key");
 
 
-		// outside.Chest.Put("sword", sword);
-		// outside.Chest.Put("chestplate", chestplate);
+		outside.Chest.Put("sword", sword);
+		outside.Chest.Put("chestplate", chestplate);
 
 		// Start game outside
 		player.CurrentRoom = outside;
 
 		// Put random items in the rooms
 		// List of all rooms
-		Room[] rooms = { outside, theatre, pub, lab, office, basement };
+		// Room[] rooms = { outside, theatre, pub, lab, office, basement };
 
-		// List of all items
-		Item[] items = { sword, chestplate, bandage, medKit, key };
+		// // List of all items
+		// Item[] items = { sword, chestplate, bandage, medKit, key };
 
-		// Randomly distribute items across rooms
-		Random random = new Random();
-		foreach (Item item in items)
-		{
-			int randomRoomIndex = random.Next(items.Length);
-			rooms[randomRoomIndex].Chest.Put(item.Description, item);
-		}
+		// // Randomly distribute items across rooms
+		// Random random = new Random();
+		// foreach (Item item in items)
+		// {
+		// 	int randomRoomIndex = random.Next(items.Length);
+		// 	rooms[randomRoomIndex].Chest.Put(item.Description, item);
+		// }
 	}
 
 	//  Main play routine. Loops until end of play.
